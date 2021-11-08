@@ -208,6 +208,8 @@
   (define (preceeded-by-comment? pos)
     (define ci-of-pos (and pos (hash-ref comment-info pos #false)))
     (and (xref? ci-of-pos) (xref-prev-is-comment? ci-of-pos)))
+  (define (preceeded-by-lambda-symbol? pos)
+    #false)
   (define (is-block-comment? pos)
     (define ci-of-pos (and pos (hash-ref comment-info pos #false)))
     (and (comment-tok? ci-of-pos) (comment-tok-sexp? ci-of-pos)))
@@ -222,7 +224,8 @@
     (cond
       [(and prev-pos space (syntax-position stx)
             ((if (symbol=? space 'yes) = >) (syntax-position stx) prev-pos)
-            (not (preceeded-by-comment? (syntax-position stx))))
+            (not (preceeded-by-comment? (syntax-position stx)))
+            (not (preceeded-by-lambda-symbol? (syntax-position stx))))
        (list (list 
               (fix-lines (syntax-source stx) (syntax-line stx))
               (syntax-column stx)
