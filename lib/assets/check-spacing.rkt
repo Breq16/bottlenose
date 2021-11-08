@@ -322,10 +322,10 @@
                   col)
           line)))
 
-#;(module+ test
+(module+ test
   (require rackunit))
 
-#;(module+ test
+(module+ test
   (define (check-num-errors num text)
     (check-equal? (length (missing-spaces-text text)) num))
   (check-num-errors 0 "(+ 1 2)")
